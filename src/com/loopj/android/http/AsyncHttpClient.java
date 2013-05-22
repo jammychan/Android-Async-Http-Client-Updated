@@ -35,6 +35,7 @@ import android.content.Context;
 import ch.boye.httpclientandroidlib.Header;
 import ch.boye.httpclientandroidlib.HeaderElement;
 import ch.boye.httpclientandroidlib.HttpEntity;
+import ch.boye.httpclientandroidlib.HttpHost;
 import ch.boye.httpclientandroidlib.HttpRequest;
 import ch.boye.httpclientandroidlib.HttpRequestInterceptor;
 import ch.boye.httpclientandroidlib.HttpResponse;
@@ -51,6 +52,7 @@ import ch.boye.httpclientandroidlib.client.methods.HttpPost;
 import ch.boye.httpclientandroidlib.client.methods.HttpPut;
 import ch.boye.httpclientandroidlib.client.methods.HttpUriRequest;
 import ch.boye.httpclientandroidlib.client.protocol.ClientContext;
+import ch.boye.httpclientandroidlib.conn.params.ConnRoutePNames;
 import ch.boye.httpclientandroidlib.conn.scheme.PlainSocketFactory;
 import ch.boye.httpclientandroidlib.conn.scheme.Scheme;
 import ch.boye.httpclientandroidlib.conn.scheme.SchemeRegistry;
@@ -144,6 +146,14 @@ public class AsyncHttpClient {
 				}
 			}
 		});
+
+		if (System.getProperty("http.proxyHost") != null
+				&& System.getProperty("http.proxyHost").length() > 0) {
+			HttpHost proxy = new HttpHost(System.getProperty("http.proxyHost"),
+					Integer.valueOf(System.getProperty("http.proxyPort")));
+			httpClient.getParams().setParameter(ConnRoutePNames.DEFAULT_PROXY,
+					proxy);
+		}
 
 		httpClient.addResponseInterceptor(new HttpResponseInterceptor() {
 			@Override
