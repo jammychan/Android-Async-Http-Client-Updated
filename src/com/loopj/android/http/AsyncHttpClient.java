@@ -442,13 +442,14 @@ public class AsyncHttpClient {
 	 * Perform a HTTP POST request, without any parameters.
 	 * 
 	 * @param url
-	 *            the URL to send the request to.       
+	 *            the URL to send the request to.
 	 * @param responseHandler
 	 *            the response handler instance that should handle the response.
 	 * @param entity
-	 * 			  HttpEntity to be post in body.
+	 *            HttpEntity to be post in body.
 	 */
-	public void post(String url, AsyncHttpResponseHandler responseHandler, HttpEntity entity) {
+	public void post(String url, AsyncHttpResponseHandler responseHandler,
+			HttpEntity entity) {
 		post(null, url, entity, null, responseHandler);
 	}
 
